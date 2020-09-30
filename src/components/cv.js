@@ -1,21 +1,13 @@
 import React,{Component} from "react";
 import  tw, { styled, css } from 'twin.macro';
+import Header from './header'
 
 const Container = styled.div([
   css `
     min-height: 98vh;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   `,
-  tw `container w-3/4 md:w-1/2 lg:w-2/5 xl:w-2/5 mx-auto rounded grid grid-rows-5 grid-cols-3`
-])
-
-const Header = styled.div([
-    css ` 
-        font-family: 'Roboto', sans-serif;
-        background: rgb(255,255,255);
-        background: linear-gradient(170deg, rgba(255,255,255,1) 0%, rgba(251,251,251,1) 57%, rgba(189,189,189,1) 58%, rgba(189,189,189,1) 100%);
-    `,
-    tw `container bg-gray-500 col-start-1 col-end-4 text-center rounded-t-sm flex flex-col justify-center items-start`
+  tw `container md:w-3/4 lg:w-3/4 xl:w-3/5 mx-auto rounded grid grid-rows-5 grid-cols-3`
 ])
 
 const Body = styled.div([
@@ -32,14 +24,6 @@ const SideNav = styled.div([
         background-color: #414143;
     `,
     tw `container row-start-2 row-end-6 rounded-l-sm rounded-t-none text-white grid grid-rows-3 `
-])
-
-const Name = styled.h1 ([
-    tw `text-4xl pl-5 tracking-wider`
-])
-
-const Ocupation = styled.h3 ([
-    tw `pl-5 font-light text-xl`
 ])
 
 const Profile = styled.div ([
@@ -68,24 +52,27 @@ const Text = styled.p ([
 const Contact = styled.div ([
     css `
         border-bottom:1px solid gray;
-        margin:5px;
+        width:95%;
+        margin: 0 auto;
     `,
-    tw `ml-6 mr-6 mt-4 pb-4 text-center`
+    tw `mb-3  text-center`
 ])
 
 const Education = styled.div ([
     css `
         border-bottom:1px solid gray;
-        margin:5px;
+        width:95%;
+        margin: 0 auto;
     `,
-    tw `ml-6 mr-6 mt-4 pb-4 text-center`
+    tw `mb-3 text-center`
 ])
 
 const Skills = styled.div ([
     css `
-        margin:5px;
+        width:95%;
+        margin: 0 auto;
     `,
-    tw `ml-6 mr-6 mt-4 pb-4 text-center`
+    tw `mb-3 text-center`
 ])
 
 const Job = styled.div ([
@@ -124,10 +111,7 @@ class Cv extends Component {
     render() {
         return(
             <Container>
-                <Header>
-                    <Name>Juan Gonzalez</Name>
-                    <Ocupation>Frontend Dev.</Ocupation>
-                </Header>
+                <Header />
                 <Body>
                     <Profile>
                         <Title>PROFILE</Title>
