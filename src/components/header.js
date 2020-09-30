@@ -31,10 +31,11 @@ const Ocupation = styled.h3 ([
 
 const Form = styled.form ([
     css ` 
-        position:absolute;
         font-family: 'Roboto', sans-serif;
-        top:38%;
-        left:45%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     `,
     tw `text-center flex flex-col bg-gray-200 p-2`
 ])

@@ -7,7 +7,7 @@ const Container = styled.div([
     min-height: 98vh;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   `,
-  tw `container md:w-3/4 lg:w-3/4 xl:w-3/5 mx-auto rounded grid grid-rows-5 grid-cols-3`
+  tw `container md:w-3/4 lg:w-3/4 xl:w-3/5 mx-auto rounded grid grid-rows-5 grid-cols-3 relative`
 ])
 
 const Body = styled.div([
