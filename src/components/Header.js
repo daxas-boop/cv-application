@@ -33,11 +33,22 @@ const Form = styled.form ([
     css ` 
         font-family: 'Roboto', sans-serif;
         position: absolute;
-        top: 50%;
+        top: 35vh;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index:1;
+        @media (min-width: 600px) {
+            top: 25vh;
+        }
+        @media (max-width: 320px) {
+            top: 50vh;
+        }
     `,
-    tw `text-center flex flex-col bg-gray-200 p-2`
+    tw `text-center flex flex-col bg-gray-400 p-2 rounded-sm shadow-md`
+])
+
+const Button = styled.button ([
+    tw `bg-green-500 hover:bg-green-700 text-white mt-2 font-bold py-2 px-2 border border-green-700 rounded self-center`
 ])
 
 class Header extends Component {
@@ -86,15 +97,17 @@ class Header extends Component {
                         <Form onSubmit={ (e) => this.handleSubmit(e) }>
                             <label>Name</label>
                             <input
+                                required
                                 defaultValue= {this.state.name}
                                 onChange={ (e) => this.handleNameChange(e) }
                             ></input>
                             <label>Profession</label>
                             <input
+                                required
                                 defaultValue= {this.state.profession}
                                 onChange={(e) => this.handleProfessionChange(e) }
                             ></input>
-                            <button>End edit</button>
+                            <Button>End edit</Button>
                         </Form> 
                     }
                 </Wrapper>
