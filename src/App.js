@@ -1,7 +1,9 @@
 import React from "react"
 import tw, { styled, css } from 'twin.macro';
-import BackgroundImage from './images/test.jpg'
-import Cv from './components/cv'
+import BackgroundImage from './images/test.jpg';
+import Header from './components/Header';
+import Body from './components/body/Body';
+import SideNav from "./components/SideNav";
 
 const Container = styled.div([
   css `
@@ -15,11 +17,22 @@ const Container = styled.div([
   tw `flex items-center`
 ])
 
+const Wrapper = styled.div([
+  css `
+    min-height: 98vh;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  `,
+  tw `container md:w-3/4 lg:w-3/4 xl:w-3/5 mx-auto rounded grid grid-rows-5 grid-cols-3 relative`
+])
 
 function App() {
   return (
     <Container>
-      <Cv></Cv>
+      <Wrapper>
+          <Header />
+          <Body />
+          <SideNav />
+      </Wrapper>
     </Container>
   );
 }
