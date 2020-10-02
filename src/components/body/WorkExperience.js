@@ -5,6 +5,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const Container = styled.div ([
     css `
+        position:relative;
         margin:5px;
     `,
     tw `ml-6 mr-6 mt-4 pb-4 relative`
@@ -15,7 +16,7 @@ const Job = styled.div ([
         border-bottom:1px solid gray;
         margin:5px;
     `,
-    tw `flex flex-col pb-4`
+    tw `flex flex-col pb-4 relative`
 ])
 
 const JobPosition = styled.h3 ([
@@ -44,9 +45,10 @@ const Form = styled.form ([
     css ` 
         font-family: 'Roboto', sans-serif;
         position: absolute;
+        left:0;
         z-index:1;
     `,
-    tw `text-center flex flex-col bg-gray-400 p-2 rounded-sm shadow-md`
+    tw `text-center flex flex-col bg-gray-400 p-1 md:p-3 rounded-sm shadow-md`
 ])
 
 const Button = styled.button ([
@@ -151,16 +153,28 @@ class WorkExperience extends Component {
         return( 
             <Container>
                 <Title>WORK EXPERIENCE</Title>
+                <EditButton
+                    icon={faEdit}
+                    onClick={this.handleJobEditToggle}
+                />
+                <Job>
+                    <JobPosition>Position: {this.state.job.jobPosition}</JobPosition>
+                    <Company>Company: {this.state.job.jobCompany}</Company>
+                    <DateContainer> Date: {this.state.job.jobDateStart} / {this.state.job.jobDateEnd}
+                    </DateContainer>
+                    <Text>{this.state.job.jobText}</Text>
                 {this.state.jobEditToggle &&
                     <Form onSubmit={this.handleJobSubmitForm}>
                         <label>Position</label>
                         <input
+                            maxLength="20"
                             placeholder='Position'
                             defaultValue={this.state.job.jobPosition}
                             onChange={(e) => this.handleJobPositionChange(e)}
                         ></input>
                         <label>Company</label>
                         <input
+                            maxLength="20"
                             placeholder='Company'
                             defaultValue={this.state.job.jobCompany}
                             onChange={(e) => this.handleJobCompanyChange(e)}
@@ -179,22 +193,13 @@ class WorkExperience extends Component {
                         ></input>
                         <label>Info about the job</label>
                         <TextArea
+                            maxLength="200"
                             defaultValue= {this.state.job.jobText}
                             onChange= {(e) => this.handleJobTextChange(e)}
                         ></TextArea>
                         <Button>End edit</Button>
                     </Form>
                 }
-                <EditButton
-                    icon={faEdit}
-                    onClick={this.handleJobEditToggle}
-                />
-                <Job>
-                    <JobPosition>Position: {this.state.job.jobPosition}</JobPosition>
-                    <Company>Company: {this.state.job.jobCompany}</Company>
-                    <DateContainer> Date: {this.state.job.jobDateStart} / {this.state.job.jobDateEnd}
-                    </DateContainer>
-                    <Text>{this.state.job.jobText}</Text>
                 </Job>
             </Container>
         )

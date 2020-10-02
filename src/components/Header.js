@@ -14,7 +14,7 @@ const HeaderContainer = styled.div([
 ])
 
 const EditButton = styled(FontAwesomeIcon) ([
-    tw `hover:cursor-pointer transition transform hover:scale-150 `
+    tw `hover:cursor-pointer transition transform hover:scale-150`
 ])
 
 const Wrapper = styled.div (
@@ -22,11 +22,11 @@ const Wrapper = styled.div (
 )
 
 const Name = styled.h1 ([
-    tw `text-4xl pl-5 tracking-wider`
+    tw `text-4xl pl-5 tracking-wider break-all`
 ])
 
 const Ocupation = styled.h3 ([
-    tw `pl-5 font-light text-xl`
+    tw `pl-5 font-light text-xl break-all`
 ])
 
 const Form = styled.form ([
@@ -97,12 +97,14 @@ class Header extends Component {
                         <Form onSubmit={ (e) => this.handleSubmit(e) }>
                             <label>Name</label>
                             <input
+                                maxLength="25"
                                 required
                                 defaultValue= {this.state.name}
                                 onChange={ (e) => this.handleNameChange(e) }
                             ></input>
                             <label>Profession</label>
                             <input
+                                maxLength="20"
                                 required
                                 defaultValue= {this.state.profession}
                                 onChange={(e) => this.handleProfessionChange(e) }

@@ -60,6 +60,7 @@ class Profile extends Component {
                     <Form onSubmit={this.props.handleProfileSubmitForm}>
                         <label>Profile Info</label>
                         <TextArea
+                            maxLength="200"
                             required
                             defaultValue= {this.props.profileText}
                             onChange= {(e) => this.props.handleProfileChange(e)}
