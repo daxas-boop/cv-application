@@ -110,24 +110,31 @@ class Skills extends Component {
                     <Form onSubmit={(e) => this.sumbitSkillsForm(e)}>
                         <label>Add a skill</label>
                         <input
+                            maxLength='15'
                             value={newSkillInput}
                             onChange={(e) => this.handleChangeNewSkill(e)}
                         ></input>
                         <button 
                             type='button'
                             onClick={this.addSkill}
-                            tw='bg-red-300 self-center rounded mb-5'
+                            tw='bg-red-400 self-center rounded mb-5 mt-2 px-2 py-1 hover:bg-red-600 border border-red-600'
                         >Send</button>
-                        {arraySkills && 
-                        arraySkills.map( skill => (
-                            <div tw='bg-gray-200 border-orange-100 border-solid border-4 flex justify-around' key={skill.key + 'container'}>
-                            <span key={skill.key}> {skill.skill}</span>
-                            <button
-                                tw='bg-red-200 rounded self-center'
-                                onClick={() => this.deleteSkill(skill.key)}
-                                key={skill.key + 'button'}>x</button>
+                        {arraySkills.length > 0 &&
+                        <div>
+                            <label>Remove a Skill</label>
+                            <div css={css(css `overflow: auto; max-height:200px`)}>
+                                {arraySkills.map( skill => (
+                                    <div tw='bg-gray-200 border-blue-200 border-solid border-4 flex justify-around' key={skill.key + 'container'}>
+                                    <span key={skill.key}> {skill.skill}</span>
+                                    <button
+                                        tw='bg-red-400 rounded px-2 text-lg'
+                                        onClick={() => this.deleteSkill(skill.key)}
+                                        key={skill.key + 'button'}>×</button>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+                        }
                         <Button type='submit'>End edit</Button>
                     </Form>
                 }
