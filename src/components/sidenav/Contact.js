@@ -52,26 +52,99 @@ const Title = styled.h3 ([
 ])
 
 class Contact extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            contact: {
+                email:'',
+                phone:'',
+                github:'',
+                contactEdit: false,
+            },
+        }
+
+        this.sumbitContactForm = this.sumbitContactForm.bind(this);
+        this.toggleContactEdit = this.toggleContactEdit.bind(this);
+    }
+
+    toggleContactEdit() {
+        this.setState( prevState => ({
+            contact: {
+                ...prevState.contact,
+                contactEdit: !prevState.contact.contactEdit
+            }
+        }))
+    }
+
+    sumbitContactForm(e) {
+        e.preventDefault();
+        this.toggleContactEdit();
+    }
+
+    changeEmail(e) {
+        const newValue = e.target.value;
+        this.setState( prevState => ({
+                contact: {
+                    ...prevState.contact,
+                    email: newValue
+                }
+            }))
+    }
+
+    changePhone(e) {
+        const newValue = e.target.value;
+        this.setState( prevState => ({
+                contact: {
+                    ...prevState.contact,
+                    phone: newValue
+                }
+            }))
+    }
+
+    changeGithub(e) {
+        const newValue = e.target.value;
+        this.setState( prevState => ({
+                contact: {
+                    ...prevState.contact,
+                    github: newValue
+                }
+            }))
+    }
 
     render() {
-        const {contactEdit, email, phone, github, toggleContactEdit, sumbitContactForm} = this.props
+        const { contact: {contactEdit, email, phone, github} }= this.state
 
         return(
             <Widget tw='pt-2'>
                 <Title>CONTACT</Title>
                 {contactEdit &&
-                    <Form onSubmit={(e) => sumbitContactForm(e)}>
+                    <Form onSubmit={(e) => this.sumbitContactForm(e)}>
                         <label>Email</label>
-                        <input type='email'></input>
+                        <input 
+                            maxLength='20' 
+                            defaultValue={email} 
+                            onChange={ (e)=>this.changeEmail(e) } 
+                            type='email'
+                        ></input>
                         <label>Phone</label>
-                        <input></input>
+                        <input 
+                            maxLength='15' 
+                            defaultValue={phone} 
+                            onChange={ (e)=>this.changePhone(e) }    
+                        ></input>
                         <label>Github Page</label>
-                        <input></input>
+                        <input 
+                            maxLength='15' 
+                            defaultValue={github} 
+                            onChange={ (e)=>this.changeGithub(e) }
+                        ></input>
+
                         <Button>End edit</Button>
                     </Form>
                 }
                     <EditButton 
-                        onClick={toggleContactEdit}
+                        onClick={this.toggleContactEdit}
                         icon={faEdit}/>
                 <List>
                     <div>

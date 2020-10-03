@@ -2,8 +2,9 @@
 import { jsx } from '@emotion/core';
 import { Component } from 'react'
 import  tw, { styled, css } from 'twin.macro';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import uniqid from 'uniqid';
 
 const Title = styled.h3 ([
     tw `mb-2 text-xl tracking-wider`
@@ -51,51 +52,93 @@ const Button = styled.button ([
 ])
 
 class Skills extends Component {
+    constructor(props){
+        super(props)
+        this.state ={
+            arraySkills:[],
+            skillEdit:false,
+            newSkillInput: '' 
+        }
+        this.sumbitSkillsForm = this.sumbitSkillsForm.bind(this);
+        this.toggleSkillEdit = this.toggleSkillEdit.bind(this);
+        this.deleteSkill = this.deleteSkill.bind(this);
+        this.handleChangeNewSkill = this.handleChangeNewSkill.bind(this);
+        this.addSkill = this.addSkill.bind(this)
+    }
+
+    toggleSkillEdit(){
+        this.setState( prevState => ({
+            skillEdit: !prevState.skillEdit
+        }))
+    }
+
+    sumbitSkillsForm(e){
+        e.preventDefault();
+        this.toggleSkillEdit();
+    }
+
+    deleteSkill(key) {
+        this.setState({
+            arraySkills: [...this.state.arraySkills.filter( skill =>
+            skill.key !== key)]
+        })
+    }
+
+    handleChangeNewSkill(e) {
+        this.setState({newSkillInput: e.target.value})
+    }
+
+    addSkill(){
+        const newSkill = {
+            skill: this.state.newSkillInput,
+            key: uniqid()
+        }
+
+        this.setState( prevState => ({
+            arraySkills: [...prevState.arraySkills, newSkill],
+            newSkillInput:''
+        }))
+    }
+
     render() {
-        const { 
-            skillEdit, 
-            arraySkills,
-            sumbitSkillsForm, 
-            toggleSkillEdit,
-            newSkillInput,
-            handleChangeNewSkill, 
-            deleteSkill,
-            addSkill} = this.props
+        const { skillEdit, arraySkills, newSkillInput} = this.state
 
         return(
             <Widget tw='border-none mb-0'>
                 <Title>SKILLS</Title>
                 {skillEdit &&
-                    <Form onSubmit={(e) => sumbitSkillsForm(e)}>
+                    <Form onSubmit={(e) => this.sumbitSkillsForm(e)}>
                         <label>Add a skill</label>
                         <input
                             value={newSkillInput}
-                            onChange={(e) => handleChangeNewSkill(e)}
+                            onChange={(e) => this.handleChangeNewSkill(e)}
                         ></input>
                         <button 
-                            onClick={addSkill}
+                            type='button'
+                            onClick={this.addSkill}
                             tw='bg-red-300 self-center rounded mb-5'
                         >Send</button>
                         {arraySkills && 
                         arraySkills.map( skill => (
-                            <div tw='bg-gray-200 border-orange-100 border-solid border-4' key={skill.key + 'container'}>
+                            <div tw='bg-gray-200 border-orange-100 border-solid border-4 flex justify-around' key={skill.key + 'container'}>
                             <span key={skill.key}> {skill.skill}</span>
-                            <button 
-                                onClick={() => deleteSkill(skill.key)}
+                            <button
+                                tw='bg-red-200 rounded self-center'
+                                onClick={() => this.deleteSkill(skill.key)}
                                 key={skill.key + 'button'}>x</button>
                             </div>
                         ))}
-                        <Button>End edit</Button>
+                        <Button type='submit'>End edit</Button>
                     </Form>
                 }
                 <EditButton 
-                    onClick={toggleSkillEdit}
+                    onClick={this.toggleSkillEdit}
                     icon={faEdit}/>
                 <List>
-                    {arraySkills && 
+                    {arraySkills.length > 0 ? 
                     arraySkills.map( skill => (
                         <li key={skill.key}>{skill.skill}</li>
-                    ))}
+                    )) : <p>Add skills please</p>}
                 </List>
             </Widget>
         )

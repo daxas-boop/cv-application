@@ -51,33 +51,116 @@ const Title = styled.h3 ([
 ])
 
 class Education extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+             education: {
+                location:'',
+                dateStart:'',
+                dateEnd:'',
+                title:'',
+                educationEdit: false,
+            }
+        }
+        this.sumbitEducationForm = this.sumbitEducationForm.bind(this);
+        this.toggleEducationEdit = this.toggleEducationEdit.bind(this);
+    }
+
+    toggleEducationEdit() {
+        this.setState( prevState => ({
+            education: {
+                ...prevState.education,
+                educationEdit: !prevState.education.educationEdit
+            }
+        }))
+    }
+
+    sumbitEducationForm(e) {
+        e.preventDefault();
+        this.toggleEducationEdit();
+    }
+
+    changeLocation(e){
+        const newValue = e.target.value;
+        this.setState(prevState => ({
+            education:{
+                ...prevState.education,
+                location:newValue
+            }
+        }))
+    }
+
+    changeDateStart(e){
+        const newValue = e.target.value;
+        this.setState(prevState => ({
+            education:{
+                ...prevState.education,
+                dateStart:newValue
+            }
+        }))
+    }
+
+    changeDateEnd(e){
+        const newValue = e.target.value;
+        this.setState(prevState => ({
+            education:{
+                ...prevState.education,
+                dateEnd:newValue
+            }
+        }))
+    }
+
+    changeTitle(e) {
+        const newValue = e.target.value;
+        this.setState(prevState => ({
+            education:{
+                ...prevState.education,
+                title:newValue
+            }
+        }))
+    }
 
     render() {
-        const {educationEdit, university, dateStart, dateEnd, title,
-            sumbitEducationForm, toggleEducationEdit} = this.props
+        const {education: {educationEdit, location, dateStart, dateEnd, title}} = this.state;
 
         return(
             <Widget>
                 <Title>EDUCATION</Title>
                 {educationEdit &&
-                    <Form onSubmit={(e) => sumbitEducationForm(e)}>
+                    <Form onSubmit={(e) => this.sumbitEducationForm(e)}>
                         <label>Where did you studied</label>
-                        <input type='email'></input>
+                        <input 
+                            defaultValue={location}
+                            maxLength='20'
+                            onChange={(e) => this.changeLocation(e)}
+                        ></input>
                         <label>Date Start</label>
-                        <input type='month'></input>
+                        <input 
+                            defaultValue={dateStart}
+                            onChange={(e) => this.changeDateStart(e)}
+                            type='month'
+                            ></input>
                         <label>Date End</label>
-                        <input type='month'></input>
+                        <input
+                            defaultValue={dateEnd}
+                            onChange={(e) => this.changeDateEnd(e)}
+                            type='month'
+                        ></input>
                         <label>Title</label>
-                        <input></input>
+                        <input
+                            defaultValue={title}
+                            maxLength='20'
+                            onChange={(e) => this.changeTitle(e)}
+                        ></input>
                         <Button>End edit</Button>
                     </Form>
                 }
                         <EditButton 
-                            onClick={toggleEducationEdit}
+                            onClick={this.toggleEducationEdit}
                             icon={faEdit}/>
                     <List>
-                        <li>Studied in: {university ? university : 'Where you studied'}</li>
-                        <li>Date: {dateStart ? dateStart : '2020'} / {dateEnd ? dateEnd : '2020'}</li>
+                        <li>Studied in: {location ? location : 'Where you studied'}</li>
+                        <li>Date: {dateStart ? dateStart : 'date'} / {dateEnd ? dateEnd : 'date'}</li>
                         <li>Title: {title ? title : ''}</li>
                     </List>
             </Widget>
