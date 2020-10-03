@@ -55,65 +55,65 @@ class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: 'Juan Gonzalez',
-            profession: 'Frontend Dev.',
-            nameToggle: false
+            name: '',
+            profession: '',
+            editName: false
         }
 
-        this.toggleNameForm = this.toggleNameForm.bind(this);
+        this.toggleEditName = this.toggleEditName.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleProfessionChange = this.handleProfessionChange.bind(this);
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.toggleNameForm();
+        this.toggleEditName();
     }
 
-    toggleNameForm() {
+    toggleEditName() {
         this.setState(prevState => ({
-            nameToggle: !prevState.nameToggle
+            editName: !prevState.editName
         }));
     }
 
     handleNameChange(e) {
-        this.setState( {name: e.target.value} )
+        this.setState( {name: e.target.value.trim()} )
     }
 
     handleProfessionChange(e) {
-        this.setState( {profession: e.target.value} )
+        this.setState( {profession: e.target.value.trim()} )
     }
 
     render(){
+        const {name, profession, editName} = this.state;
+
         return(
             <HeaderContainer>
                 <Wrapper>
-                    <Name>{this.state.name}</Name>
+                    <Name>{name ? name : 'Your name'}</Name>
                     <EditButton
                         icon={faEdit}
-                        onClick={this.toggleNameForm}
+                        onClick={this.toggleEditName}
                     />
-                    {this.state.nameToggle &&
+                    {editName &&
                         <Form onSubmit={ (e) => this.handleSubmit(e) }>
                             <label>Name</label>
                             <input
                                 maxLength="25"
-                                required
-                                defaultValue= {this.state.name}
+                                defaultValue= {name}
                                 onChange={ (e) => this.handleNameChange(e) }
                             ></input>
                             <label>Profession</label>
                             <input
                                 maxLength="20"
-                                required
-                                defaultValue= {this.state.profession}
+                                defaultValue= {profession}
                                 onChange={(e) => this.handleProfessionChange(e) }
                             ></input>
                             <Button>End edit</Button>
                         </Form> 
                     }
                 </Wrapper>
-                <Ocupation>{this.state.profession}</Ocupation>
+                <Ocupation>{profession ? profession : 'Your profession'}</Ocupation>
             </HeaderContainer>
         )
     }
