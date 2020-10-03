@@ -5,6 +5,9 @@
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
+    "@fortawesome/fontawesome-svg-core": "^1.2.31",
+    "@fortawesome/free-solid-svg-icons": "^5.15.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -13,6 +16,7 @@
     "react-scripts": "3.4.3",
     "tailwindcss": "^1.8.10",
     "twin.macro": "^1.10.0",
+    "uniqid": "^5.2.0",
     "webfontloader": "^1.6.28"
   },
   "scripts": {
