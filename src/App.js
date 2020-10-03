@@ -2,7 +2,7 @@ import React from "react"
 import tw, { styled, css } from 'twin.macro';
 import BackgroundImage from './images/test.jpg';
 import Header from './components/Header';
-import Body from './components/body/Body';
+import Body from './components/main/Main';
 import SideNav from "./components/sidenav/SideNav";
 
 const Container = styled.div([
