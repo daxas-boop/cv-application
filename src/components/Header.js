@@ -55,14 +55,30 @@ class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            profession: '',
+            name: this.getStorage('header_name') || '',
+            profession: this.getStorage('header_profession') || '',
             editName: false
         }
-
         this.toggleEditName = this.toggleEditName.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleProfessionChange = this.handleProfessionChange.bind(this);
+    }
+
+    componentDidUpdate(prevState, prevProps) {
+        if (this.state.name !== prevState.name) {
+            this.setStorage('header_name', this.state.name)
+        }
+        if (this.state.profession !== prevState.profession) {
+            this.setStorage('header_profession', this.state.profession)
+        }
+    }
+
+    setStorage(key,value){
+        localStorage.setItem(key,JSON.stringify(value));
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
     }
 
     handleSubmit(e) {

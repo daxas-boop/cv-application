@@ -50,13 +50,27 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            profileText: '',
+            profileText: this.getStorage('profile_text') || '',
             profileEditToggle: false,
         }
 
         this.handleProfileEditToggle = this.handleProfileEditToggle.bind(this);
         this.handleProfileSubmitForm = this.handleProfileSubmitForm.bind(this);
         this.handleProfileChange = this.handleProfileChange.bind(this);
+    }
+
+    componentDidUpdate(prevState) {
+        if(this.state.profileText !== prevState.profileText) {
+            this.setStorage('profile_text', this.state.profileText)
+        }
+    }
+
+    setStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
     }
 
     handleProfileChange(e) {
