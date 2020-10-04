@@ -73,16 +73,46 @@ class WorkExperience extends Component {
     constructor(props){
         super(props)
         this.state = {
-            jobEditToggle: false,
-            jobPosition: '',
-            jobCompany: '',
-            jobDateStart:'',
-            jobDateEnd: '',
-            jobText: '',
+            jobPosition: this.getStorage('work_position') || '',
+            jobCompany: this.getStorage('work_company') || '',
+            jobDateStart: this.getStorage('work_date_start') || '',
+            jobDateEnd: this.getStorage('work_date_end') || '',
+            jobText: this.getStorage('work_text') || '',
+            jobEditToggle: false
         }
 
         this.handleJobEditToggle = this.handleJobEditToggle.bind(this);
         this.handleJobSubmitForm = this.handleJobSubmitForm.bind(this);
+    }
+
+    componentDidUpdate(prevState) {
+        if(this.state.jobPosition !== prevState.jobPosition) {
+            this.setStorage('work_position', this.state.jobPosition)
+        }
+
+        if(this.state.jobCompany !== prevState.jobCompany) {
+            this.setStorage('work_company', this.state.jobCompany)
+        }
+
+        if(this.state.jobDateStart !== prevState.jobDateStart) {
+            this.setStorage('work_date_start', this.state.jobDateStart)
+        }
+
+        if(this.state.jobDateEnd !== prevState.jobDateEnd) {
+            this.setStorage('work_date_end', this.state.jobDateEnd)
+        }
+
+        if(this.state.jobText !== prevState.jobText) {
+            this.setStorage('work_text', this.state.jobText)
+        }
+    }
+
+    setStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
     }
 
 

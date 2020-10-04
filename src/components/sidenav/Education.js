@@ -54,24 +54,45 @@ class Education extends Component {
     constructor(props){
         super(props)
         this.state = {
-             education: {
-                location:'',
-                dateStart:'',
-                dateEnd:'',
-                title:'',
-                educationEdit: false,
-            }
+            location: this.getStorage('education_location') || '',
+            dateStart: this.getStorage('education_date_start') || '',
+            dateEnd: this.getStorage('education_date_end') || '',
+            title: this.getStorage('education_title') || '',
+            educationEdit: false,
         }
         this.sumbitEducationForm = this.sumbitEducationForm.bind(this);
         this.toggleEducationEdit = this.toggleEducationEdit.bind(this);
     }
 
+    componentDidUpdate(prevState) {
+        if(this.state.location !== prevState.location) {
+            this.setStorage('education_location', this.state.location)
+        }
+
+        if(this.state.dateStart !== prevState.dateStart) {
+            this.setStorage('education_date_start', this.state.dateStart)
+        }
+
+        if(this.state.dateEnd !== prevState.dateEnd) {
+            this.setStorage('education_date_end', this.state.dateEnd)
+        }
+
+        if(this.state.title !== prevState.title) {
+            this.setStorage('education_title', this.state.title)
+        }
+    }
+
+    setStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
+    }
+
     toggleEducationEdit() {
         this.setState( prevState => ({
-            education: {
-                ...prevState.education,
-                educationEdit: !prevState.education.educationEdit
-            }
+            educationEdit: !prevState.educationEdit
         }))
     }
 
@@ -82,46 +103,26 @@ class Education extends Component {
 
     changeLocation(e){
         const newValue = e.target.value;
-        this.setState(prevState => ({
-            education:{
-                ...prevState.education,
-                location:newValue
-            }
-        }))
+        this.setState( {location:newValue} )
     }
 
     changeDateStart(e){
         const newValue = e.target.value;
-        this.setState(prevState => ({
-            education:{
-                ...prevState.education,
-                dateStart:newValue
-            }
-        }))
+        this.setState( {dateStart:newValue} )
     }
 
     changeDateEnd(e){
         const newValue = e.target.value;
-        this.setState(prevState => ({
-            education:{
-                ...prevState.education,
-                dateEnd:newValue
-            }
-        }))
+        this.setState( {dateEnd:newValue} )
     }
 
     changeTitle(e) {
         const newValue = e.target.value;
-        this.setState(prevState => ({
-            education:{
-                ...prevState.education,
-                title:newValue
-            }
-        }))
+        this.setState( {title:newValue} )
     }
 
     render() {
-        const {education: {educationEdit, location, dateStart, dateEnd, title}} = this.state;
+        const {educationEdit, location, dateStart, dateEnd, title} = this.state;
 
         return(
             <Widget>

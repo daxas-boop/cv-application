@@ -58,25 +58,42 @@ class Contact extends Component {
         super(props)
 
         this.state = {
-            contact: {
-                email:'',
-                phone:'',
-                github:'',
-                contactEdit: false,
-            },
+            email:  this.getStorage('contact_email') || '',
+            phone:  this.getStorage('contact_phone') || '',
+            github: this.getStorage('contact_github') || '',
+            contactEdit: false,
         }
 
         this.sumbitContactForm = this.sumbitContactForm.bind(this);
         this.toggleContactEdit = this.toggleContactEdit.bind(this);
     }
 
+    componentDidUpdate(prevState) {
+        if(this.state.email !== prevState.email) {
+            this.setStorage('contact_email', this.state.email)
+        }
+
+        if(this.state.phone !== prevState.phone) {
+            this.setStorage('contact_phone', this.state.phone)
+        }
+
+        if(this.state.github !== prevState.github) {
+            this.setStorage('contact_github', this.state.github)
+        }
+    }
+
+    setStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
+    }
+
     toggleContactEdit() {
-        this.setState( prevState => ({
-            contact: {
-                ...prevState.contact,
-                contactEdit: !prevState.contact.contactEdit
-            }
-        }))
+        this.setState( prevState => (
+            { contactEdit: !prevState.contactEdit }
+        ))
     }
 
     sumbitContactForm(e) {
@@ -86,36 +103,21 @@ class Contact extends Component {
 
     changeEmail(e) {
         const newValue = e.target.value;
-        this.setState( prevState => ({
-                contact: {
-                    ...prevState.contact,
-                    email: newValue
-                }
-            }))
+        this.setState( { email: newValue })
     }
 
     changePhone(e) {
         const newValue = e.target.value;
-        this.setState( prevState => ({
-                contact: {
-                    ...prevState.contact,
-                    phone: newValue
-                }
-            }))
+        this.setState( { phone: newValue } )
     }
 
     changeGithub(e) {
         const newValue = e.target.value;
-        this.setState( prevState => ({
-                contact: {
-                    ...prevState.contact,
-                    github: newValue
-                }
-            }))
+        this.setState( { github: newValue } )
     }
 
     render() {
-        const { contact: {contactEdit, email, phone, github} }= this.state
+        const { contactEdit, email, phone, github} = this.state
 
         return(
             <Widget tw='pt-2'>
@@ -137,7 +139,7 @@ class Contact extends Component {
                         ></input>
                         <label>Github Page</label>
                         <input 
-                            maxLength='15' 
+                            maxLength='25' 
                             defaultValue={github} 
                             onChange={ (e)=>this.changeGithub(e) }
                         ></input>
