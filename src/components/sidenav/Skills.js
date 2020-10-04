@@ -55,7 +55,7 @@ class Skills extends Component {
     constructor(props){
         super(props)
         this.state ={
-            arraySkills:[],
+            arraySkills: this.getStorage('skills_arraySkills') || [],
             skillEdit:false,
             newSkillInput: '' 
         }
@@ -64,6 +64,20 @@ class Skills extends Component {
         this.deleteSkill = this.deleteSkill.bind(this);
         this.handleChangeNewSkill = this.handleChangeNewSkill.bind(this);
         this.addSkill = this.addSkill.bind(this)
+    }
+
+    componentDidUpdate(prevState) {
+        if(this.state.arraySkills !== prevState.arraySkills) {
+            this.setStorage('skills_arraySkills', this.state.arraySkills)
+        }
+    }
+
+    setStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+
+    getStorage(key) {
+        return JSON.parse(localStorage.getItem(key))
     }
 
     toggleSkillEdit(){
