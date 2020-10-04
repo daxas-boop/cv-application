@@ -2,9 +2,11 @@
 import { jsx } from '@emotion/core';
 import { Component } from 'react'
 import  tw, { styled, css } from 'twin.macro';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone } from '@fortawesome/free-solid-svg-icons'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faAt } from '@fortawesome/free-solid-svg-icons';
 
 const Widget = styled.div ([
     css `
@@ -148,7 +150,7 @@ class Contact extends Component {
                         icon={faEdit}/>
                 <List>
                     <div>
-                        <FontAwesomeIcon tw='mr-2' icon={faEdit}/>
+                        <FontAwesomeIcon tw='mr-2' icon={faAt}/>
                         <span>{email ? email : 'Enter your email'}</span>
                     </div>
                     <div>
@@ -156,7 +158,7 @@ class Contact extends Component {
                         <span>{phone ? phone : 'Enter your phone'} </span>
                     </div>
                     <div>
-                        <FontAwesomeIcon tw='mr-2' icon={faEdit}/>
+                        <FontAwesomeIcon tw='mr-2' icon={faGithub}/>
                         <span>{github ? github : 'github.com/yourpage'}</span>
                     </div>
                 </List>
