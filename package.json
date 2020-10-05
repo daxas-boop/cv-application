@@ -15,7 +15,7 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.3",
     "tailwindcss": "^1.8.10",
     "twin.macro": "^1.10.0",
     "uniqid": "^5.2.0"
