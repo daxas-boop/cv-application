@@ -1,4 +1,4 @@
-# Pizzeria TOP React
+# CV Application
 
 ## Overview 
 This project was created as part of the curriculum in Javascript Fullstack on The Odin Project.</br>
